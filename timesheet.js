@@ -10,7 +10,11 @@ $(document).ready(function () {
   var database = firebase.database();
 
 
-
+  // found this solution on stackoverflow
+  // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
 
 
@@ -31,12 +35,18 @@ $(document).ready(function () {
       var timeNow = moment(Date.now());
       var diffMonths = timeNow.diff( moment(dateString), 'months', true );
       var howManyMonthsWorked = Math.floor(diffMonths);
-      // ============================================================
+
+      // =============== calc totalBilled ===========================
+      var howMuchEarned = employeeData.monthlyRate * howManyMonthsWorked;
+      console.log('howMuchEarned: ', howMuchEarned);
+      howMuchEarned = howMuchEarned.toFixed(2);
+      console.log('howMuchEarned: ', howMuchEarned);
+
 
       // const monthsWorked = $('<td>').text('');
       const monthsWorked = $('<td>').text(howManyMonthsWorked);
       const monthlyRate = $('<td>').text(employeeData.monthlyRate);
-      const totalBilled = $('<td>').text('');
+      const totalBilled = $('<td>').text('$ ' + numberWithCommas(howMuchEarned) );
 
       row
           .append(name)
