@@ -50,10 +50,12 @@ $(document).ready(function () {
 
 
       //====== diff of time ============
-      var a = moment(employeeData.startDate);
+      var a = startD;
+      console.log('a: ', a);
       var b = moment();
-      a.diff(b) // 86400000
-      console.log('adiffb: ', a.diff(b) );
+      var c = a.diff(b); // 86400000
+      // FIXME: here is printing a number like this: -34634399511
+      console.log('adiffb: ', c );
 
 
       const monthsWorked = $('<td>').text('');
