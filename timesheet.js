@@ -7,15 +7,16 @@ $(document).ready(function () {
   };
 
   firebase.initializeApp(config);
-
-  // Create a variable to reference the database.
   var database = firebase.database();
 
-  var someDate = "02/23/1999";
-  var someFormat = "MM/DD/YYYY";
-  var convertedDate = moment(someDate, someFormat);
-  console.log(convertedDate.format("MM/DD/YY"));
 
+
+
+
+
+  // ===================================================
+  // has a child been added to DB?
+  // ===================================================
   database.ref().on('child_added', function(child_snapshot) {
       var employeeData = child_snapshot.val();
 
@@ -23,39 +24,52 @@ $(document).ready(function () {
 
       const name = $('<td>').text(employeeData.name);
       const role = $('<td>').text(employeeData.role);
-      // const startDate = $('<td>').text( moment(employeeData.startDate, 'MM/DD/YYYY').format('X') );
-      const startDate = $('<td>').text( moment.unix(employeeData.startDate).format("MM/DD/YYYY") );
-
-      // var dateString = moment.unix(employeeData.startDate).format("MM/DD/YYYY");
       var dateString = moment.unix(employeeData.startDate).format('MM/DD/YYYY'); // input: 1273816800, output: 05/14/2010
-
-      console.log('dateString: ', dateString);
+      const startDate = $('<td>').text( dateString );
 
       //TODO: how many months have they worked
       // now() - startDate
-      // var a = moment(employeeData.startDate);
-      var startD = moment('01/01/2019');
-      // var thing = moment().year(date).month(month).date(day)
+      // find diff, convert that to months
+
       var thing = moment(dateString).year();  // prints year yay!
-      var thing2 = moment().year(dateString).month();
-      var thing3 = moment(dateString).toNow();
-      console.log('thing & thing2 & thing3: ', thing, thing2, thing3);
-      var now = moment();
-      // var b = moment([2007, 0, 29]);
-      // a.to(b) // "in a day"
-      // console.log('how much time: ', thing.to(now));
-      // console.log(a.to(now));
-
-
-
-
+      console.log('thing: ', thing);
+      
       //====== diff of time ============
+      var startD = moment('01/01/2019');
       var a = startD;
       console.log('a: ', a);
       var b = moment();
       var c = a.diff(b); // 86400000
+      c = b.diff(a); // makes it positive
       // FIXME: here is printing a number like this: -34634399511
       console.log('adiffb: ', c );
+      console.log('formated: ', moment.unix(c).format('MM/DD/YYYY'));
+
+
+      //========= diff in months =======================
+      console.log('here is 3 month diffs');
+      // 31 Oct 2013 - 1 Feb 2014
+      console.log( moment([2014, 1, 1]).diff(moment([2013, 9, 31]), 'months', true) );
+      // var t1 = moment(dateString).diff(Date.now(), 'months', true);
+      var t2 = moment(Date.now());
+      var t1 = moment(dateString).diff(Date.now(), 'months', true);
+      var t11 = t2.diff(moment(dateString), 'months', true);
+      console.log('now & startDate: ', t2.format('MM/DD/YYYY'), dateString);
+      console.log('months worked: ', t11);
+      var numMonthsWorked = Math.floor(t11);
+      console.log('months worked: ', t11);
+      console.log('months worked floor: ', numMonthsWorked);
+
+      
+      // 2.983050847457627
+
+      // 31 Oct 2013 - 31 Jan 2014
+      console.log( moment([2014, 0, 31]).diff(moment([2013, 9, 31]), 'months', true) );
+      //3
+
+      // 31 Oct 2013 - 30 Jan 2014
+      console.log( moment([2014, 0, 30]).diff(moment([2013, 9, 31]), 'months', true) );
+      //2.967741935483871
 
 
       const monthsWorked = $('<td>').text('');
