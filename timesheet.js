@@ -60,7 +60,18 @@ $(document).ready(function () {
       console.log('months worked: ', t11);
       console.log('months worked floor: ', numMonthsWorked);
 
+
+
+
+      // ===== here we go, how many months???? ==============
+      var timeNow = moment(Date.now());
+      var diffMonths = timeNow.diff( moment(dateString), 'months', true );
+      var howManyMonthsWorked = Math.floor(diffMonths);
+      // ====================================================
+
       
+
+
       // 2.983050847457627
 
       // 31 Oct 2013 - 31 Jan 2014
@@ -72,7 +83,8 @@ $(document).ready(function () {
       //2.967741935483871
 
 
-      const monthsWorked = $('<td>').text('');
+      // const monthsWorked = $('<td>').text('');
+      const monthsWorked = $('<td>').text(howManyMonthsWorked);
       const monthlyRate = $('<td>').text(employeeData.monthlyRate);
       const totalBilled = $('<td>').text('');
 
