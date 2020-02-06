@@ -34,12 +34,26 @@ $(document).ready(function () {
       //TODO: how many months have they worked
       // now() - startDate
       // var a = moment(employeeData.startDate);
-      var startD = moment(dateString);
+      var startD = moment('01/01/2019');
+      // var thing = moment().year(date).month(month).date(day)
+      var thing = moment(dateString).year();  // prints year yay!
+      var thing2 = moment().year(dateString).month();
+      var thing3 = moment(dateString).toNow();
+      console.log('thing & thing2 & thing3: ', thing, thing2, thing3);
       var now = moment();
       // var b = moment([2007, 0, 29]);
       // a.to(b) // "in a day"
-      console.log('how much time: ', startD.to(now));
+      // console.log('how much time: ', thing.to(now));
       // console.log(a.to(now));
+
+
+
+
+      //====== diff of time ============
+      var a = moment(employeeData.startDate);
+      var b = moment();
+      a.diff(b) // 86400000
+      console.log('adiffb: ', a.diff(b) );
 
 
       const monthsWorked = $('<td>').text('');
