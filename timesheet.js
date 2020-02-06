@@ -23,21 +23,23 @@ $(document).ready(function () {
 
       const name = $('<td>').text(employeeData.name);
       const role = $('<td>').text(employeeData.role);
-      const startDate = $('<td>').text( moment(employeeData.startDate, 'MM/DD/YYYY').format('X') );
-      console.log('date: ', employeeData.startDate);
-      console.log('dateChanged: ' + moment(employeeData.startDate, 'MM/DD/YYYY').format('MM/DD/YYYY') );
-      console.log('hello: ', moment(employeeData.startDate, 'MM/DD/YYYY').format('X'));
+      // const startDate = $('<td>').text( moment(employeeData.startDate, 'MM/DD/YYYY').format('X') );
+      const startDate = $('<td>').text( moment.unix(employeeData.startDate).format("MM/DD/YYYY") );
 
+      // var dateString = moment.unix(employeeData.startDate).format("MM/DD/YYYY");
+      var dateString = moment.unix(employeeData.startDate).format('MM/DD/YYYY'); // input: 1273816800, output: 05/14/2010
 
-      var someDate = "02/23/1999";
-      var someFormat = "MM/DD/YYYY";
-      var convertedDate = moment(employeeData.startDate, someFormat);
-      var dateString = moment.unix(employeeData.startDate).format("MM/DD/YYYY");
+      console.log('dateString: ', dateString);
 
-    var dateString = moment.unix(employeeData.startDate).format('MM/DD/YYYY'); // input: 1273816800, output: 05/14/2010
-
-      console.log('stuff', dateString);
-      console.log(convertedDate);
+      //TODO: how many months have they worked
+      // now() - startDate
+      // var a = moment(employeeData.startDate);
+      var startD = moment(dateString);
+      var now = moment();
+      // var b = moment([2007, 0, 29]);
+      // a.to(b) // "in a day"
+      console.log('how much time: ', startD.to(now));
+      // console.log(a.to(now));
 
 
       const monthsWorked = $('<td>').text('');
